@@ -1,5 +1,8 @@
+script = "";
+
 function execute() {
     var x = document.getElementById('text').value.split('\n');
+    script = "";
     for (var i = 0; i < x.length; i++) {
         line = x[i].split(" ");
         var matches = "";
@@ -25,8 +28,9 @@ function execute() {
         }
     }
 
+    new Function(script)();
 }
 
 function addLineToScript(newLine) {
-    document.getElementById('result').value += newLine + "\n";
+    script += newLine + "\n";
 }
