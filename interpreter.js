@@ -39,6 +39,14 @@ function execute() {
         else if(line[1] == "if") {
             matches = /Or if (.+):/g.exec(x[i]);
             addLineToScript("} else if(" + parseConditionalExpression(matches[1]) + ") {")
+        }else if(line[0]=="while"){
+
+            matches = /while (.+)( is less than | is greater than | is equal to )(.+)/g.exec(x[i]);
+            var expres=parseConditionalExpression(matches[1]+matches[2]+matches[3]);
+
+            var temp = "while("+expres+"){";
+            addLineToScript(temp);
+
         }
     }
     console.log(script);
