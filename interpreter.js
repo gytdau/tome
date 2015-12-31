@@ -19,6 +19,10 @@ function execute() {
             matches = /Subtract (.+) from (.+)/g.exec(x[i]);
             addLineToScript(matches[2] + " -= " + matches[1])
         }
+        else if(line[0] == "Ask") {
+            matches = /Ask (".+") for (.+)/g.exec(x[i]);
+            addLineToScript("var " + matches[2] + " = prompt(" + matches[1] + ")")
+        }
     }
 
 }

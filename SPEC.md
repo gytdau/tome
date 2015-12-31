@@ -24,4 +24,12 @@ Decrements `a` by the expression `b`
 ```
 Show a
 ```
+
 Shows `a` to the user
+
+
+```
+Ask "What is a?" for a
+```
+
+Asks the user the question `"What is a?"` and puts the user's response into `a`
