@@ -45,6 +45,15 @@ function execute() {
             addLineToScript("while("+parseConditionalExpression(matches[1])+") {");
 
         }
+        else if(line[0] == "Count") {
+            matches = /Count until (.+) reaches (-?\d+):/g.exec(x[i]);
+            if(parseInt(matches[2]) > 0) {
+                incrementor = "++";
+            } else {
+                incrementor = "--";
+            }
+            addLineToScript("for(" + matches[1] + " = 0; " + matches[1] + " != " + matches[2] + "; " + matches[1] + incrementor + ") {")
+        }
     }
     console.log(script);
     new Function(script)();

@@ -89,3 +89,32 @@ While (conditional) do:
 End
 ```
 
+The While loop executes the code forever as long as the conditional still evaluates to True.
+
+### Count Loop
+
+This is a simplified version of the common `for` loop.
+
+```
+Count until a reaches 5:
+Show a
+End
+
+Output:
+0 1 2 3 4
+```
+
+The Count loop also supports negative numbers.
+
+```
+Count until a reaches -5:
+Show a
+End
+
+Output:
+0 -1 -2 -3 -4
+```
+
+The simplicity means that it's also more limited than the standard For loop.
+It only supports the variable starting at 0; and incrementing or decrementing by 1 until it reaches the target.
+If you want to simulate the capabilities of a standard For loop in Tome, you'll have to use the While loop instead.
