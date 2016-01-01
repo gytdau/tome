@@ -66,6 +66,7 @@ function parseConditionalExpression(expression) {
     expression = replaceAll(expression, " is less than ", " < ");
     expression = replaceAll(expression, " and ", " && ");
     expression = replaceAll(expression, " or ", " || ");
+    expression = expression.replace(/([a-zA-Z0-9]+) is inside of ([a-zA-Z0-9]+)/g, "$2.indexOf($1) > -1");
     return expression;
 }
 

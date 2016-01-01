@@ -51,14 +51,16 @@ End
 
 Below, you will find the conversion chart for Tome syntax into normal programming syntax for conditionals.
 
-| Syntax in Tome  | Normal syntax |
-|-----------------|---------------|
-|   is equal to   |       ==      |
-| is not equal to |       !=      |
-| is greater than |       >       |
-|   is less than  |       <       |
-|       and       |       &&      |
-|        or       |       \|\|      |
+
+| Syntax in Tome  | Normal syntax     |
+|-----------------|-------------------|
+|   is equal to   |         ==        |
+| is not equal to |         !=        |
+| is greater than |         >         |
+|   is less than  |         <         |
+|       and       |         &&        |
+|        or       |         \|\|        |
+|   is inside of  | a.indexOf(b) > -1 |
 
 This is a sample conditional program, to show you the syntax required. Parenthesies are allowed but discouraged.
 ```
