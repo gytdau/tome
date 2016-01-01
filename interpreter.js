@@ -7,37 +7,37 @@ function execute() {
         line = x[i].split(" ");
         var matches = "";
         if(line[0] == "Set") {
-            matches = /Set (.+) as (.+)/g.exec(x[i]);
+            matches = /Set (.+) as (.+)./g.exec(x[i]);
             addLineToScript("var " + matches[1] + " = " + matches[2]);
         }
         else if(line[0] == "Show") {
-            matches = /Show (.+)/g.exec(x[i]);
+            matches = /Show (.+)./g.exec(x[i]);
             addLineToScript("alert(" + matches[1] + ")")
         }
         else if(line[0] == "Add") {
-            matches = /Add (.+) to (.+)/g.exec(x[i]);
+            matches = /Add (.+) to (.+)./g.exec(x[i]);
             addLineToScript(matches[2] + " = parseInt(" + matches[1] + ") + parseInt(" + matches[2] + ")")
         }
         else if(line[0] == "Subtract") {
-            matches = /Subtract (.+) from (.+)/g.exec(x[i]);
+            matches = /Subtract (.+) from (.+)./g.exec(x[i]);
             addLineToScript(matches[2] + "  = parseInt(" + matches[1] + ") - parseInt(" + matches[2] + ")")
         }
         else if(line[0] == "Ask") {
-            matches = /Ask (".+") for (.+)/g.exec(x[i]);
+            matches = /Ask (".+") for (.+)./g.exec(x[i]);
             addLineToScript("var " + matches[2] + " = prompt(" + matches[1] + ")")
         }
         else if(line[0] == "If") {
-            matches = /If (.+):/g.exec(x[i]);
+            matches = /If (.+), then do:/g.exec(x[i]);
             addLineToScript("if(" + parseConditionalExpression(matches[1]) + ") {")
         }
-        else if(line[0] == "End") {
+        else if(line[0] == "End.") {
             addLineToScript('}')
         }
-        else if(line[1] == "else:") {
+        else if(line[1] == "else") {
             addLineToScript('} else {')
         }
         else if(line[1] == "if") {
-            matches = /Or if (.+):/g.exec(x[i]);
+            matches = /Or if (.+), then do:/g.exec(x[i]);
             addLineToScript("} else if(" + parseConditionalExpression(matches[1]) + ") {")
         }
         else if(line[0]=="While"){
@@ -55,12 +55,12 @@ function execute() {
             addLineToScript("for(" + matches[1] + " = 0; " + matches[1] + " != " + matches[2] + "; " + matches[1] + incrementor + ") {")
         }else if(line[0]=="Increment"){
 
-            matches = /Increment (.+)/g.exec(x[i]);
+            matches = /Increment (.+)./g.exec(x[i]);
             addLineToScript(matches[1]+"++;");
 
         }else if(line[0]=="Decrement"){
 
-            matches = /Decrement (.+)/g.exec(x[i]);
+            matches = /Decrement (.+)./g.exec(x[i]);
             addLineToScript(matches[1]+"--;");
 
         }
