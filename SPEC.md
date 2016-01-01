@@ -77,3 +77,15 @@ If (a is equal to 5):
 Encouraged syntax:
 If a is equal to 5:
 ```
+
+## Loops
+
+### While Loop
+
+
+```
+While (conditional) do:
+    <code>
+End
+```
+
