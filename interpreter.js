@@ -56,7 +56,6 @@ function execute() {
         }else if(line[0]=="Increment"){
 
             matches = /Increment (.+)/g.exec(x[i]);
-            alert(matches);
             addLineToScript(matches[1]+"++;");
 
         }else if(line[0]=="Decrement"){
