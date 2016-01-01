@@ -12,6 +12,7 @@ function execute() {
         }
         else if(line[0] == "Show") {
             matches = /Show (.+)/g.exec(x[i]);
+            matches[1]=parseConditionalExpression(matches[1]);
             addLineToScript("alert(" + matches[1] + ")")
         }
         else if(line[0] == "Add") {
