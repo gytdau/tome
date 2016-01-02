@@ -63,6 +63,16 @@ function execute() {
             matches = /Decrement (.+)./g.exec(x[i]);
             addLineToScript(matches[1]+"--;");
 
+        }else if(line[0]=="Insert"){
+
+            matches = /Insert (.+) into (.+)./g.exec(x[i]);
+            addLineToScript(matches[2]+".push("+matches[1]+");");
+
+        }else if(line[0]=="Remove"){
+
+            matches = /Remove (.+) from (.+)./g.exec(x[i]);
+            addLineToScript(matches[2]+".splice(("+matches[2]+".indexOf("+matches[1]+")), 1)");
+
         }
 
     }
