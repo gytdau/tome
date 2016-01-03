@@ -90,12 +90,12 @@ Show "A is 4".
 Or else do:
 Show "A is not 5 or 4".
 End.
-```
+
 Discouraged syntax:
-If (a is equal to 5):
+If (a is equal to 5), then do:
 
 Encouraged syntax:
-If a is equal to 5:
+If a is equal to 5, then do:
 ```
 
 ## Loops

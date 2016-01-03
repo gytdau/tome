@@ -66,6 +66,16 @@ function execute() {
         }else if(x[i].charAt(0) == "(" && x[i].charAt(x[i].length - 1) == ")"){
             matches = /\((.+)\)/g.exec(x[i]);
             addLineToScript("// " + matches[1]);
+        }else if(line[0]=="Insert"){
+
+            matches = /Insert (.+) into (.+)./g.exec(x[i]);
+            addLineToScript(matches[2]+".push("+matches[1]+");");
+
+        }else if(line[0]=="Remove"){
+
+            matches = /Remove (.+) from (.+)./g.exec(x[i]);
+            addLineToScript(matches[2]+".splice(("+matches[2]+".indexOf("+matches[1]+")), 1)");
+
         }
 
     }
