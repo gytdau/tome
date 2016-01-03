@@ -47,6 +47,12 @@ Ask "What is a?" for a.
 
 Asks the user the question `"What is a?"` and puts the user's response into `a`
 
+```
+(This is a comment)
+```
+
+Code comment. Tome ignores any statements which begin with `(` and end with `)`.
+
 
 ## Conditionals
 

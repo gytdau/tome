@@ -63,6 +63,9 @@ function execute() {
             matches = /Decrement (.+)./g.exec(x[i]);
             addLineToScript(matches[1]+"--;");
 
+        }else if(x[i].charAt(0) == "(" && x[i].charAt(x[i].length - 1) == ")"){
+            matches = /\((.+)\)/g.exec(x[i]);
+            addLineToScript("// " + matches[1]);
         }
 
     }
