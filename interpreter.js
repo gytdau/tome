@@ -1,94 +1,15 @@
-script = "";
+var script = "";
 
-function execute() {
-    var x = document.getElementById('text').value.split('\n');
-    script = "";
-    for (var i = 0; i < x.length; i++) {
-        line = x[i].split(" ");
-        var matches = "";
-        if(line[0] == "Set") {
-            matches = /Set (.+) as (.+)./g.exec(x[i]);
-            addLineToScript("var " + matches[1] + " = " + matches[2]);
-        }
-        else if(line[0] == "Show") {
-            matches = /Show (.+)./g.exec(x[i]);
-            addLineToScript("alert(" + matches[1] + ")")
-        }
-        else if(line[0] == "Add") {
-            matches = /Add (.+) to (.+)./g.exec(x[i]);
-            addLineToScript(matches[2] + " = parseInt(" + matches[1] + ") + parseInt(" + matches[2] + ")")
-        }
-        else if(line[0] == "Subtract") {
-            matches = /Subtract (.+) from (.+)./g.exec(x[i]);
-            addLineToScript(matches[2] + "  = parseInt(" + matches[1] + ") - parseInt(" + matches[2] + ")")
-        }
-        else if(line[0] == "Ask") {
-            matches = /Ask (".+") for (.+)./g.exec(x[i]);
-            addLineToScript("var " + matches[2] + " = prompt(" + matches[1] + ")")
-        }
-        else if(line[0] == "If") {
-            matches = /If (.+), then do:/g.exec(x[i]);
-            addLineToScript("if(" + parseConditionalExpression(matches[1]) + ") {")
-        }
-        else if(line[0] == "End.") {
-            addLineToScript('}')
-        }
-        else if(line[1] == "else") {
-            addLineToScript('} else {')
-        }
-        else if(line[1] == "if") {
-            matches = /Or if (.+), then do:/g.exec(x[i]);
-            addLineToScript("} else if(" + parseConditionalExpression(matches[1]) + ") {")
-        }
-        else if(line[0]=="While"){
-            matches = /While (.+) do:/g.exec(x[i]);
-            addLineToScript("while("+parseConditionalExpression(matches[1])+") {");
+function addLineToScript(newLine) {
+    script += newLine + "\n";
+}
 
-        }
-        else if(line[0] == "Count") {
-            matches = /Count until (.+) reaches (-?\d+):/g.exec(x[i]);
-            if(parseInt(matches[2]) > 0) {
-                incrementor = "++";
-            } else {
-                incrementor = "--";
-            }
-            addLineToScript("for(" + matches[1] + " = 0; " + matches[1] + " != " + matches[2] + "; " + matches[1] + incrementor + ") {")
-        }else if(line[0]=="Increment"){
-
-            matches = /Increment (.+)./g.exec(x[i]);
-            addLineToScript(matches[1]+"++;");
-
-        }else if(line[0]=="Decrement"){
-
-            matches = /Decrement (.+)./g.exec(x[i]);
-            addLineToScript(matches[1]+"--;");
-
-        }else if(x[i].charAt(0) == "(" && x[i].charAt(x[i].length - 1) == ")"){
-            matches = /\((.+)\)/g.exec(x[i]);
-            addLineToScript("// " + matches[1]);
-        }else if(line[0]=="Insert"){
-
-            matches = /Insert (.+) into (.+)./g.exec(x[i]);
-            addLineToScript(matches[2]+".push("+matches[1]+");");
-
-        }else if(line[0]=="Remove"){
-
-            matches = /Remove (.+) from (.+)./g.exec(x[i]);
-            addLineToScript(matches[2]+".splice(("+matches[2]+".indexOf("+matches[1]+")), 1)");
-
-        }else if(line[0] == "For") {
-            matches = /For every (.+) in (.+) do:/g.exec(x[i]);
-            addLineToScript("for (var ___ = 0; ___ < " + matches[2] + ".length; ___++) {");
-            addLineToScript("var " + matches[1] + " = " + matches[2] + "[___];");
-        }
-
-    }
-    console.log(script);
-    new Function(script)();
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, "g"), replace);
 }
 
 function parseConditionalExpression(expression) {
-    expression = replaceAll(expression, " is equal to ", " == ");
+    expression = replaceAll(expression, " is equal to ", " === ");
     expression = replaceAll(expression, " is not equal to ", " != ");
     expression = replaceAll(expression, " is greater than ", " > ");
     expression = replaceAll(expression, " is less than ", " < ");
@@ -98,10 +19,104 @@ function parseConditionalExpression(expression) {
     return expression;
 }
 
-function replaceAll(str, find, replace) {
-    return str.replace(new RegExp(find, 'g'), replace);
-}
 
-function addLineToScript(newLine) {
-    script += newLine + "\n";
+function execute() {
+    var x = document.getElementById("text").value.split("\n");
+    script = "";
+    for (var i = 0; i < x.length; i++) {
+        var line = x[i].split(" ");
+        var matches = "";
+        if (line[0] === "Set") {
+
+            matches = /Set (.+) as (.+)./g.exec(x[i]);
+            addLineToScript("var " + matches[1] + " = " + matches[2]);
+
+        } else if (line[0] === "Show") {
+
+            matches = /Show (.+)./g.exec(x[i]);
+            addLineToScript("alert(" + matches[1] + ")");
+
+        } else if (line[0] === "Add") {
+
+            matches = /Add (.+) to (.+)./g.exec(x[i]);
+            addLineToScript(matches[2] + " = parseInt(" + matches[1] + ") + parseInt(" + matches[2] + ")");
+
+        } else if (line[0] === "Subtract") {
+
+            matches = /Subtract (.+) from (.+)./g.exec(x[i]);
+            addLineToScript(matches[2] + "  = parseInt(" + matches[1] + ") - parseInt(" + matches[2] + ")");
+
+        } else if (line[0] === "Ask") {
+
+            matches = /Ask (".+") for (.+)./g.exec(x[i]);
+            addLineToScript("var " + matches[2] + " = prompt(" + matches[1] + ")");
+
+        } else if (line[0] === "If") {
+
+            matches = /If (.+), then do:/g.exec(x[i]);
+            addLineToScript("if(" + parseConditionalExpression(matches[1]) + ") {");
+
+        } else if (line[0] === "End.") {
+
+            addLineToScript("}");
+
+        } else if (line[1] === "else") {
+
+            addLineToScript("} else {");
+
+        } else if (line[1] === "if") {
+
+            matches = /Or if (.+), then do:/g.exec(x[i]);
+            addLineToScript("} else if(" + parseConditionalExpression(matches[1]) + ") {");
+
+        } else if (line[0] === "While") {
+
+            matches = /While (.+) do:/g.exec(x[i]);
+            addLineToScript("while(" + parseConditionalExpression(matches[1]) + ") {");
+
+        } else if (line[0] === "Count") {
+
+            matches = /Count until (.+) reaches (-?\d+):/g.exec(x[i]);
+            var incrementor = "--";
+            if (parseInt(matches[2]) > 0) {
+                incrementor = "++";
+            }
+            addLineToScript("for(" + matches[1] + " = 0; " + matches[1] + " != " + matches[2] + "; " + matches[1] + incrementor + ") {");
+
+        } else if (line[0] === "Increment") {
+
+            matches = /Increment (.+)./g.exec(x[i]);
+            addLineToScript(matches[1] + "++;");
+
+        } else if (line[0] === "Decrement") {
+
+            matches = /Decrement (.+)./g.exec(x[i]);
+            addLineToScript(matches[1] + "--;");
+
+        } else if (x[i].charAt(0) === "(" && x[i].charAt(x[i].length - 1) === ")") {
+
+            matches = /\((.+)\)/g.exec(x[i]);
+            addLineToScript("// " + matches[1]);
+
+        } else if (line[0] === "Insert") {
+
+            matches = /Insert (.+) into (.+)./g.exec(x[i]);
+            addLineToScript(matches[2] + ".push(" + matches[1] + ");");
+
+        } else if (line[0] === "Remove") {
+
+            matches = /Remove (.+) from (.+)./g.exec(x[i]);
+            addLineToScript(matches[2] + ".splice((" + matches[2] + ".indexOf(" + matches[1] + ")), 1)");
+
+        } else if (line[0] === "For") {
+
+            matches = /For every (.+) in (.+) do:/g.exec(x[i]);
+            addLineToScript("for (var ___ = 0; ___ < " + matches[2] + ".length; ___++) {");
+            addLineToScript("var " + matches[1] + " = " + matches[2] + "[___];");
+
+        }
+
+    }
+    console.log(script);
+    new Function(script)();
 }
