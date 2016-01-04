@@ -76,6 +76,10 @@ function execute() {
             matches = /Remove (.+) from (.+)./g.exec(x[i]);
             addLineToScript(matches[2]+".splice(("+matches[2]+".indexOf("+matches[1]+")), 1)");
 
+        }else if(line[0] == "For") {
+            matches = /For every (.+) in (.+) do:/g.exec(x[i]);
+            addLineToScript("for (var ___ = 0; ___ < " + matches[2] + ".length; ___++) {");
+            addLineToScript("var " + matches[1] + " = " + matches[2] + "[___];");
         }
 
     }

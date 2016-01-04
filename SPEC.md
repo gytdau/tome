@@ -138,3 +138,16 @@ Output:
 The simplicity means that it's also more limited than the standard For loop.
 It only supports the variable starting at 0; and incrementing or decrementing by 1 until it reaches the target.
 If you want to simulate the capabilities of a standard For loop in Tome, you'll have to use the While loop instead.
+
+### For Loop
+
+```
+Set a as [5, 10, 15].
+
+For every item in a do:
+Show item.
+End.
+```
+
+Tome's `For` loop iterates over every item in a list in order.
+
