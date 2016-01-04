@@ -2,3 +2,11 @@
     min-width: 100%;
     font-family: monospace;
 }
+
+.highlight {
+    background-color: red;
+}
+
+.alert-danger {
+    margin-top: 30px;
+}

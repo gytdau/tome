@@ -19,6 +19,18 @@ function parseConditionalExpression(expression) {
     return expression;
 }
 
+function showParseError(error) {
+    var error_box = document.getElementById("error");
+    var error_box_inner = document.getElementById("error-text");
+    error_box.className = "alert alert-danger";
+    error_box_inner.innerHTML = error;
+}
+
+function hideParseError() {
+    var error_box = document.getElementById("error");
+    error_box.className = "hidden";
+}
+
 
 function execute() {
     var x = document.getElementById("text").value.split("\n");
@@ -60,14 +72,14 @@ function execute() {
 
             addLineToScript("}");
 
-        } else if (line[1] === "else") {
+        } else if (line[0] === "Or") {
 
-            addLineToScript("} else {");
-
-        } else if (line[1] === "if") {
-
-            matches = /Or if (.+), then do:/g.exec(x[i]);
-            addLineToScript("} else if(" + parseConditionalExpression(matches[1]) + ") {");
+            if(line[1] == "else") {
+                addLineToScript("} else {");
+            } else {
+                matches = /Or if (.+), then do:/g.exec(x[i]);
+                addLineToScript("} else if(" + parseConditionalExpression(matches[1]) + ") {");
+            }
 
         } else if (line[0] === "While") {
 
@@ -114,9 +126,17 @@ function execute() {
             addLineToScript("for (var ___ = 0; ___ < " + matches[2] + ".length; ___++) {");
             addLineToScript("var " + matches[1] + " = " + matches[2] + "[___];");
 
+        } else {
+
+            showParseError("We can&apos;t understand line " + (i + 1));
+            return
+
         }
 
     }
+
+    hideParseError();
+
     console.log(script);
     new Function(script)();
 }
