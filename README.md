@@ -4,3 +4,19 @@
 
 Tome is an educational programming language with English-like syntax. It's made for people who are novice coders to help them learn programming. It compiles down into Javascript.
 You can [try it out online](http://gytdau.github.io/tome/) or [read about Tome's features.](https://github.com/gytdau/tome/blob/gh-pages/SPEC.md)
+
+## Examples
+
+Check out these example Tome programs:
+
+This is the Hello World program.
+```
+Show "Hello World".
+(It's that easy!)
+```
+Count to 20.
+```
+Count until a reaches 20:
+Show "'a' is now: " + a.
+End.
+```
