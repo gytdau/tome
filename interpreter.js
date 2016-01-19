@@ -58,16 +58,6 @@ function execute() {
             matches = /Show (.+)./g.exec(x[i]);
             addLineToScript("alert(" + matches[1] + ")");
 
-        } else if (line[0] === "Add") {
-
-            matches = /Add (.+) to (.+)./g.exec(x[i]);
-            addLineToScript(matches[2] + " = parseInt(" + matches[1] + ") + parseInt(" + matches[2] + ")");
-
-        } else if (line[0] === "Subtract") {
-
-            matches = /Subtract (.+) from (.+)./g.exec(x[i]);
-            addLineToScript(matches[2] + "  = parseInt(" + matches[1] + ") - parseInt(" + matches[2] + ")");
-
         } else if (line[0] === "Ask") {
 
             matches = /Ask (".+") for (.+)./g.exec(x[i]);
@@ -104,16 +94,6 @@ function execute() {
                 incrementor = "++";
             }
             addLineToScript("for(" + matches[1] + " = 0; " + matches[1] + " != " + matches[2] + "; " + matches[1] + incrementor + ") {");
-
-        } else if (line[0] === "Increment") {
-
-            matches = /Increment (.+)./g.exec(x[i]);
-            addLineToScript(matches[1] + "++;");
-
-        } else if (line[0] === "Decrement") {
-
-            matches = /Decrement (.+)./g.exec(x[i]);
-            addLineToScript(matches[1] + "--;");
 
         } else if (x[i].charAt(0) === "(" && x[i].charAt(x[i].length - 1) === ")") {
 

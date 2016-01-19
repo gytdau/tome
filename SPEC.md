@@ -10,31 +10,6 @@ Set a as b.
 Set the variable `a` to the expression `b`
 
 ```
-Increment a.
-```
-
-Increments `a` by 1.
-
-```
-Decrement a.
-```
-
-Decrements `a` by 1.
-
-```
-Add b to a.
-```
-
-Increments `a` by the expression `b`
-
-```
-Subtract b from a.
-```
-
-Decrements `a` by the expression `b`
-
-
-```
 Show a.
 ```
 
