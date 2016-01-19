@@ -54,6 +54,40 @@ Asks the user the question `"What is a?"` and puts the user's response into `a`
 Code comment. Tome ignores any statements which begin with `(` and end with `)`.
 
 
+## Functions
+
+This is how you define a function:
+```
+Define say hello with name:
+Return "Hello, " + name + "! How are you doing?".
+End.
+```
+
+To call a function, you must use the following syntax:
+```
+(name of function with parameter1, parameter2, etc)
+``
+
+In Tome, function names are allowed to have spaces. Functions can be run from anywhere:
+They're always automatically converted.
+
+```
+Show (say hello with "Jim").
+
+>> shows: "Hello, Jim! How are you doing?"
+```
+
+You don't have to always return a value. If you're trying to call a function that doesn't return a value, you must use
+the `Do` syntax:
+
+```
+Define show product with x, y:
+Show "The product of " + x + " and " + y + " is " + (x * y).
+End.
+Do (show product with 5, 2).
+
+>> shows: "The product of 5 and 2 is 10"
+```
 ## Conditionals
 
 This is the general pattern for conditionals:

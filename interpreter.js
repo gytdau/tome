@@ -31,11 +31,21 @@ function hideParseError() {
     error_box.className = "hidden";
 }
 
+function parseFunctionCalls(expression) {
+    return expression.replace(/\((.+?) with (.+?)\)/g, function(x,y,z) {
+        return intoFunctionName(y) + "(" + z + ")";
+    });
+}
+
+function intoFunctionName(expression) {
+    return replaceAll(expression, " ", "_");
+}
 
 function execute() {
     var x = document.getElementById("text").value.split("\n");
     script = "";
     for (var i = 0; i < x.length; i++) {
+        x[i] = parseFunctionCalls(x[i]);
         var line = x[i].split(" ");
         var matches = "";
         if (line[0] === "Set") {
@@ -125,6 +135,22 @@ function execute() {
             matches = /For every (.+) in (.+) do:/g.exec(x[i]);
             addLineToScript("for (var ___ = 0; ___ < " + matches[2] + ".length; ___++) {");
             addLineToScript("var " + matches[1] + " = " + matches[2] + "[___];");
+
+        } else if (line[0] === "Define") {
+
+            matches = /Define (.+) with (.+):/g.exec(x[i]);
+            matches[1] = intoFunctionName(matches[1]);
+            addLineToScript("function " + matches[1] + "(" + matches[2] + ") {");
+
+        } else if (line[0] === "Do") {
+
+            matches = /Do (.+)./g.exec(x[i]);
+            addLineToScript(matches[1]);
+
+        } else if (line[0] === "Return") {
+
+            matches = /Return (.+)./g.exec(x[i]);
+            addLineToScript("return " + matches[1]);
 
         } else {
 
