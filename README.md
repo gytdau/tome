@@ -14,9 +14,16 @@ This is the Hello World program.
 Show "Hello World".
 (It's that easy!)
 ```
-Count to 20.
+You can probably figure out what the programs below do just by looking at them.
 ```
 Count until a reaches 20:
 Show "'a' is now: " + a.
+End.
+```
+
+```
+Set food as ["pie", "cake", "muffins"].
+For every item in food do:
+Show "Mmm, I'd love some " + item + " right now!"
 End.
 ```
