@@ -1,7 +1,7 @@
 # Language specifications
 
 This is a list of the available syntax in Tome. Note that every sentence must start with a capital letter, and end with
-a period ( `.` ).
+a period ( `.` ). Indentation is 2 spaces.
 
 ```
 Set a as b.
@@ -34,7 +34,7 @@ Code comment. Tome ignores any statements which begin with `(` and end with `)`.
 This is how you define a function:
 ```
 Define say hello with name:
-Return "Hello, " + name + "! How are you doing?".
+  Return "Hello, " + name + "! How are you doing?".
 End.
 ```
 
@@ -57,8 +57,9 @@ the `Do` syntax:
 
 ```
 Define show product with x, y:
-Show "The product of " + x + " and " + y + " is " + (x * y).
+  Show "The product of " + x + " and " + y + " is " + (x * y).
 End.
+
 Do (show product with 5, 2).
 
 >> shows: "The product of 5 and 2 is 10"
@@ -93,11 +94,11 @@ Below, you will find the conversion chart for Tome syntax into normal programmin
 This is a sample conditional program, to show you the syntax required. Parenthesies are allowed but discouraged.
 ```
 If a is equal to 5, then do:
-Show "A is 5".
+  Show "A is 5".
 Or if a is equal to 4, then do:
-Show "A is 4".
+  Show "A is 4".
 Or else do:
-Show "A is not 5 or 4".
+  Show "A is not 5 or 4".
 End.
 
 Discouraged syntax:
@@ -126,7 +127,7 @@ This is a simplified version of the common `for` loop.
 
 ```
 Count until a reaches 5:
-Show a.
+  Show a.
 End.
 
 Output:
@@ -137,7 +138,7 @@ The Count loop also supports negative numbers.
 
 ```
 Count until a reaches -5:
-Show a.
+  Show a.
 End.
 
 Output:
@@ -154,7 +155,7 @@ If you want to simulate the capabilities of a standard For loop in Tome, you'll 
 Set a as [5, 10, 15].
 
 For every item in a do:
-Show item.
+  Show item.
 End.
 ```
 

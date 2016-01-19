@@ -37,6 +37,10 @@ function parseFunctionCalls(expression) {
     });
 }
 
+function removeIndent(expression) {
+    return expression.replace(/^ +/, "");
+}
+
 function intoFunctionName(expression) {
     return replaceAll(expression, " ", "_");
 }
@@ -46,9 +50,15 @@ function execute() {
     script = "";
     for (var i = 0; i < x.length; i++) {
         x[i] = parseFunctionCalls(x[i]);
+        x[i] = removeIndent(x[i]);
+
         var line = x[i].split(" ");
         var matches = "";
-        if (line[0] === "Set") {
+        if (line[0] === "") {
+
+            // Do nothing
+            console.log("Blank");
+        } else if (line[0] === "Set") {
 
             matches = /Set (.+) as (.+)./g.exec(x[i]);
             addLineToScript("var " + matches[1] + " = " + matches[2]);
