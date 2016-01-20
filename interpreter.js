@@ -1,4 +1,5 @@
 var script = "";
+var hasErrored = false;
 
 function addLineToScript(newLine) {
     script += newLine + "\n";
@@ -23,12 +24,16 @@ function showParseError(error) {
     var error_box = document.getElementById("error");
     var error_box_inner = document.getElementById("error-text");
     error_box.className = "alert alert-danger";
-    error_box_inner.innerHTML = error;
+    error_box_inner.innerHTML += error + "<br>";
+    hasErrored = true;
 }
 
 function hideParseError() {
     var error_box = document.getElementById("error");
+    var error_box_inner = document.getElementById("error-text");
     error_box.className = "hidden";
+    error_box_inner.innerHTML = "";
+    hasErrored = false;
 }
 
 function parseFunctionCalls(expression) {
@@ -45,9 +50,18 @@ function intoFunctionName(expression) {
     return replaceAll(expression, " ", "_");
 }
 
+function checkForError(matches, lineNumber) {
+    if (matches == null) {
+        showParseError("We can&apos;t understand line " + (lineNumber + 1));
+        return false;
+    }
+    return true;
+}
+
 function execute() {
     var x = document.getElementById("text").value.split("\n");
     script = "";
+    hideParseError();
     for (var i = 0; i < x.length; i++) {
         x[i] = parseFunctionCalls(x[i]);
         x[i] = removeIndent(x[i]);
@@ -57,26 +71,38 @@ function execute() {
         if (line[0] === "") {
 
             // Do nothing
-            console.log("Blank");
+
         } else if (line[0] === "Set") {
 
             matches = /Set (.+) as (.+)./g.exec(x[i]);
-            addLineToScript("var " + matches[1] + " = " + matches[2]);
+
+            if(checkForError(matches, i)) {
+                addLineToScript("var " + matches[1] + " = " + matches[2]);
+            }
 
         } else if (line[0] === "Show") {
 
             matches = /Show (.+)./g.exec(x[i]);
-            addLineToScript("alert(" + matches[1] + ")");
+
+            if(checkForError(matches, i)) {
+                addLineToScript("alert(" + matches[1] + ")");
+            }
 
         } else if (line[0] === "Ask") {
 
             matches = /Ask (".+") for (.+)./g.exec(x[i]);
-            addLineToScript("var " + matches[2] + " = prompt(" + matches[1] + ")");
+
+            if(checkForError(matches, i)) {
+                addLineToScript("var " + matches[2] + " = prompt(" + matches[1] + ")");
+            }
 
         } else if (line[0] === "If") {
 
             matches = /If (.+), then do:/g.exec(x[i]);
-            addLineToScript("if(" + parseConditionalExpression(matches[1]) + ") {");
+
+            if(checkForError(matches, i)) {
+                addLineToScript("if(" + parseConditionalExpression(matches[1]) + ") {");
+            }
 
         } else if (line[0] === "End.") {
 
@@ -88,59 +114,82 @@ function execute() {
                 addLineToScript("} else {");
             } else {
                 matches = /Or if (.+), then do:/g.exec(x[i]);
-                addLineToScript("} else if(" + parseConditionalExpression(matches[1]) + ") {");
+
+                if(checkForError(matches, i)) {
+                    addLineToScript("} else if(" + parseConditionalExpression(matches[1]) + ") {");
+                }
             }
 
         } else if (line[0] === "While") {
 
             matches = /While (.+) do:/g.exec(x[i]);
-            addLineToScript("while(" + parseConditionalExpression(matches[1]) + ") {");
+
+            if(checkForError(matches, i)) {
+                addLineToScript("while(" + parseConditionalExpression(matches[1]) + ") {");
+            }
 
         } else if (line[0] === "Count") {
 
             matches = /Count until (.+) reaches (-?\d+):/g.exec(x[i]);
-            var incrementor = "--";
-            if (parseInt(matches[2]) > 0) {
-                incrementor = "++";
+
+            if(checkForError(matches, i)) {
+                var incrementor = "--";
+                if (parseInt(matches[2]) > 0) {
+                    incrementor = "++";
+                }
+                addLineToScript("for(" + matches[1] + " = 0; " + matches[1] + " != " + matches[2] + "; " + matches[1] + incrementor + ") {");
             }
-            addLineToScript("for(" + matches[1] + " = 0; " + matches[1] + " != " + matches[2] + "; " + matches[1] + incrementor + ") {");
 
         } else if (x[i].charAt(0) === "(" && x[i].charAt(x[i].length - 1) === ")") {
 
             matches = /\((.+)\)/g.exec(x[i]);
-            addLineToScript("// " + matches[1]);
+            if(checkForError(matches, i)) {
+                addLineToScript("// " + matches[1]);
+            }
 
         } else if (line[0] === "Insert") {
 
             matches = /Insert (.+) into (.+)./g.exec(x[i]);
-            addLineToScript(matches[2] + ".push(" + matches[1] + ");");
+            if(checkForError(matches, i)) {
+                addLineToScript(matches[2] + ".push(" + matches[1] + ");");
+            }
 
         } else if (line[0] === "Remove") {
 
             matches = /Remove (.+) from (.+)./g.exec(x[i]);
-            addLineToScript(matches[2] + ".splice((" + matches[2] + ".indexOf(" + matches[1] + ")), 1)");
+            if(checkForError(matches, i)) {
+                addLineToScript(matches[2] + ".splice((" + matches[2] + ".indexOf(" + matches[1] + ")), 1)");
+            }
 
         } else if (line[0] === "For") {
 
             matches = /For every (.+) in (.+) do:/g.exec(x[i]);
-            addLineToScript("for (var ___ = 0; ___ < " + matches[2] + ".length; ___++) {");
-            addLineToScript("var " + matches[1] + " = " + matches[2] + "[___];");
+            if(checkForError(matches, i)) {
+                addLineToScript("for (var ___ = 0; ___ < " + matches[2] + ".length; ___++) {");
+                addLineToScript("var " + matches[1] + " = " + matches[2] + "[___];");
+            }
 
         } else if (line[0] === "Define") {
 
             matches = /Define (.+) with (.+):/g.exec(x[i]);
-            matches[1] = intoFunctionName(matches[1]);
-            addLineToScript("function " + matches[1] + "(" + matches[2] + ") {");
+            if(checkForError(matches, i)) {
+                matches[1] = intoFunctionName(matches[1]);
+                addLineToScript("function " + matches[1] + "(" + matches[2] + ") {");
+            }
 
         } else if (line[0] === "Do") {
 
             matches = /Do (.+)./g.exec(x[i]);
-            addLineToScript(matches[1]);
+            if(checkForError(matches, i)) {
+                addLineToScript(matches[1]);
+            }
 
         } else if (line[0] === "Return") {
 
             matches = /Return (.+)./g.exec(x[i]);
-            addLineToScript("return " + matches[1]);
+            if(checkForError(matches, i)) {
+                addLineToScript("return " + matches[1]);
+            }
 
         } else {
 
@@ -151,8 +200,10 @@ function execute() {
 
     }
 
-    hideParseError();
+    if(!hasErrored) {
+        hideParseError();
+        console.log(script);
+        new Function(script)();
+    }
 
-    console.log(script);
-    new Function(script)();
 }
