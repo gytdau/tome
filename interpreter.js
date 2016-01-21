@@ -20,19 +20,23 @@ function parseConditionalExpression(expression) {
     return expression;
 }
 
-function showParseError(error) {
-    var error_box = document.getElementById("error");
-    var error_box_inner = document.getElementById("error-text");
-    error_box.className = "alert alert-danger";
-    error_box_inner.innerHTML += error + "<br>";
+function showError(error, parseError) {
+    document.getElementById("error").className = "alert alert-danger";
+    document.getElementById("error-text").innerHTML += error + "<br>";
+
+    if(parseError) {
+        document.getElementById("error-title").innerHTML = "Oh no! There are errors in your code:<br>";
+    } else {
+        document.getElementById("error-title").innerHTML = "Oh no! There was an error while trying to run your code:<br>";
+    }
+
     hasErrored = true;
 }
 
-function hideParseError() {
-    var error_box = document.getElementById("error");
-    var error_box_inner = document.getElementById("error-text");
-    error_box.className = "hidden";
-    error_box_inner.innerHTML = "";
+function hideError() {
+    document.getElementById("error").className = "hidden";
+    document.getElementById("error-text").innerHTML = "";
+
     hasErrored = false;
 }
 
@@ -52,7 +56,7 @@ function intoFunctionName(expression) {
 
 function checkForError(matches, lineNumber) {
     if (matches == null) {
-        showParseError("We can&apos;t understand line " + (lineNumber + 1));
+        showError("We can&apos;t understand line " + (lineNumber + 1), true);
         return false;
     }
     return true;
@@ -61,7 +65,7 @@ function checkForError(matches, lineNumber) {
 function execute() {
     var x = document.getElementById("text").value.split("\n");
     script = "";
-    hideParseError();
+    hideError();
     for (var i = 0; i < x.length; i++) {
         x[i] = parseFunctionCalls(x[i]);
         x[i] = removeIndent(x[i]);
@@ -128,6 +132,7 @@ function execute() {
                 addLineToScript("while(" + parseConditionalExpression(matches[1]) + ") {");
             }
 
+
         } else if (line[0] === "Count") {
 
             matches = /Count until (.+) reaches (-?\d+):/g.exec(x[i]);
@@ -193,7 +198,7 @@ function execute() {
 
         } else {
 
-            showParseError("We can&apos;t understand line " + (i + 1));
+            showError("We can&apos;t understand line " + (i + 1), true);
             return
 
         }
@@ -201,9 +206,14 @@ function execute() {
     }
 
     if(!hasErrored) {
-        hideParseError();
+        hideError();
         console.log(script);
-        new Function(script)();
+
+        try {
+            new Function(script)();
+        } catch(err) {
+            showError(err, false);
+        }
     }
 
 }
