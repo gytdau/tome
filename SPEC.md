@@ -40,29 +40,28 @@ End.
 
 To call a function, you must use the following syntax:
 ```
-(name of function with parameter1, parameter2, etc)
+<name of function with parameter1, parameter2, etc>
 ``
 
 In Tome, function names are allowed to have spaces. Functions can be run from anywhere:
 They're always automatically converted.
 
 ```
-Show (say hello with "Jim").
+Show <say hello with "Jim">.
 
 >> shows: "Hello, Jim! How are you doing?"
 ```
 
-You don't have to always return a value. If you're trying to call a function that doesn't return a value, you must use
-the `Do` syntax:
+You don't have to always return a value. For example:
 
 ```
 Define show product with x, y:
   Show "The product of " + x + " and " + y + " is " + (x * y).
 End.
 
-Do (show product with 5, 2).
+Do <show product with 5, 2>.
 
->> shows: "The product of 5 and 2 is 10"
+(shows: "The product of 5 and 2 is 10")
 ```
 ## Conditionals
 

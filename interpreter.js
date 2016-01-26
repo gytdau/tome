@@ -41,7 +41,7 @@ function hideError() {
 }
 
 function parseFunctionCalls(expression) {
-    return expression.replace(/\((.+?) with (.+?)\)/g, function(x,y,z) {
+    return expression.replace(/<(.+?) with (.+?)>/g, function(x,y,z) {
         return intoFunctionName(y) + "(" + z + ")";
     });
 }
@@ -182,9 +182,9 @@ function execute() {
                 addLineToScript("function " + matches[1] + "(" + matches[2] + ") {");
             }
 
-        } else if (line[0] === "Do") {
+        } else if (x[i].slice(-2) === ").") {
 
-            matches = /Do (.+)./g.exec(x[i]);
+            matches = /^([^ ]+?\(.+?\))./g.exec(x[i]);
             if(checkForError(matches, i)) {
                 addLineToScript(matches[1]);
             }
