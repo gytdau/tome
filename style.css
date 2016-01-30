@@ -1,4 +1,8 @@
 .block {
     min-width: 100%;
     font-family: monospace;
+	
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
 }

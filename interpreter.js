@@ -78,6 +78,7 @@ function execute() {
     }
     console.log(script);
     new Function(script)();
+	document.getElementById('text2').value=script;
 }
 
 function parseConditionalExpression(expression) {
