@@ -78,7 +78,7 @@ function execute() {
 
         } else if (line[0] === "Set") {
 
-            matches = /Set (.+) as (.+)./g.exec(x[i]);
+            matches = /Set (.+) to (.+)./g.exec(x[i]);
 
             if(checkForError(matches, i)) {
                 addLineToScript("var " + matches[1] + " = " + matches[2]);

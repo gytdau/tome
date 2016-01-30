@@ -4,7 +4,7 @@ This is a list of the available syntax in Tome. Note that every sentence must st
 a period ( `.` ). Indentation is 2 spaces.
 
 ```
-Set a as b.
+Set a to b.
 ```
 
 Set the variable `a` to the expression `b`
@@ -151,7 +151,7 @@ If you want to simulate the capabilities of a standard For loop in Tome, you'll 
 ### For Loop
 
 ```
-Set a as [5, 10, 15].
+Set a to [5, 10, 15].
 
 For every item in a do:
   Show item.
