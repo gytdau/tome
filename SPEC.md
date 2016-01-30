@@ -1,81 +1,91 @@
-# Language specifications
-
-This is a list of the available syntax in Tome. Note that every sentence must start with a capital letter, and end with
-a period ( `.` ). Indentation is 2 spaces.
-
 ```
-Set a to b.
+Set my-variable to "Hello!".
 ```
 
-Set the variable `a` to the expression `b`
+Sets `my-variable` to `Hello!`. You can then show this variable by:
 
 ```
-Show a.
+Show my-variable.
 ```
 
-Shows `a` to the user
-
+Shows `my-variable` in a popup box - in this case, it'll show `Hello!`.
 
 ```
-Ask "What is a?" for a.
+Ask "What should X be?" for x.
 ```
 
-Asks the user the question `"What is a?"` and puts the user's response into `a`
+Shows a popup question box with `"What should X be?"`. Whatever you type will then be put into the `x` variable.
 
 ```
 (This is a comment)
+(I can type whatever I want in here!)
 ```
 
-Code comment. Tome ignores any statements which begin with `(` and end with `)`.
+This is a comment - they don't do anything, except provide hints for other people who are reading your code.
 
 
 ## Functions
 
-This is how you define a function:
+A function is something that you can execute with certain parameters. They're a handy way to reuse your code without writing it out many times.
 ```
 Define say hello with name:
-  Return "Hello, " + name + "! How are you doing?".
+  Show "Hello, " + name + "! How are you doing?".
 End.
 ```
-
-To call a function, you must use the following syntax:
+The function above is called 'say hello', and it takes 'name' as a parameter. You can see that it uses the 'name' variable in the code itself.
+Write this to use your function:
 ```
-<name of function with parameter1, parameter2, etc>
-``
-
-In Tome, function names are allowed to have spaces. Functions can be run from anywhere:
-They're always automatically converted.
-
-```
-Show <say hello with "Jim">.
-
->> shows: "Hello, Jim! How are you doing?"
+<say hello with "Chris">.
 ```
 
-You don't have to always return a value. For example:
+This will show `Hello, Chris! How are you doing?`. If you'd like, you can have more than one variable by separating them with commas, like so:
 
 ```
-Define show product with x, y:
-  Show "The product of " + x + " and " + y + " is " + (x * y).
+Define multiply with x, y:
+  Set result to x * y.
+  Show "The result is " + result.
 End.
 
-Do <show product with 5, 2>.
-
-(shows: "The product of 5 and 2 is 10")
+<multiply with 5, 10>
 ```
+This'll show: `The result is 50.`
+
+Sometimes, you don't want your function to show something directly: you can instead have it return a variable, like this:
+
+```
+Define devide with x, y:
+  Set result to x / y.
+  Return result.
+End.
+
+Set tenDevidedByFive to <devide with 10, 5>.
+
+Show tenDevidedByFive.
+```
+
+If you followed along, you should see that it'll show `2`.
+
 ## Conditionals
 
-This is the general pattern for conditionals:
+A conditional is a option that your program can take: if something is that, then do this thing.
+
 ```
-If conditional, then do:
-    <code>
-Or if conditional, then do:
-    <code>
-Or else do:
-    <code>
+Set numberOfApples to 5.
+
+If numberOfApples is equal to 5, then do:
+    Show "That's a lot of apples.".
 End.
 ```
 
+You can use `is equal to`, `is not equal to`, `is greater than`, `is less than`, and also `and`, `or`, for grouping statements together.
+
+```
+Set numberOfApples to 5.
+
+If numberOfApples is less than 7 and numberOfApples is greater than 4, then do:
+    Show "You have between 4 and 7 apples. Perfect!".
+End.
+```
 
 Below, you will find the conversion chart for Tome syntax into normal programming syntax for conditionals.
 
@@ -90,7 +100,7 @@ Below, you will find the conversion chart for Tome syntax into normal programmin
 |        or       |         \|\|        |
 |   is inside of  | a.indexOf(b) > -1 |
 
-This is a sample conditional program, to show you the syntax required. Parenthesies are allowed but discouraged.
+This is a sample conditional program, to show you the syntax required.
 ```
 If a is equal to 5, then do:
   Show "A is 5".
@@ -99,12 +109,6 @@ Or if a is equal to 4, then do:
 Or else do:
   Show "A is not 5 or 4".
 End.
-
-Discouraged syntax:
-If (a is equal to 5), then do:
-
-Encouraged syntax:
-If a is equal to 5, then do:
 ```
 
 ## Loops
@@ -158,5 +162,5 @@ For every item in a do:
 End.
 ```
 
-Tome's `For` loop iterates over every item in a list in order.
+The `For` loop iterates over every item in a list in order.
 
