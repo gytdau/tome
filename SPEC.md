@@ -77,36 +77,28 @@ If numberOfApples is equal to 5, then do:
 End.
 ```
 
-You can use `is equal to`, `is not equal to`, `is greater than`, `is less than`, and also `and`, `or`, for grouping statements together.
+You can use `is`, `is not` for checking if two variables are equal.
+And `<` and `>`, for checking if a variable is less than or greater than another variable.
+Finally, you can also use `and`, `or`, to only do something if two or more conditions are true.
 
 ```
 Set numberOfApples to 5.
 
-If numberOfApples is less than 7 and numberOfApples is greater than 4, then do:
+If numberOfApples < 7 and numberOfApples > 4, then do:
     Show "You have between 4 and 7 apples. Perfect!".
 End.
 ```
 
-Below, you will find the conversion chart for Tome syntax into normal programming syntax for conditionals.
-
-
-| Syntax in Tome  | Normal syntax     |
-|-----------------|-------------------|
-|   is equal to   |         ==        |
-| is not equal to |         !=        |
-| is greater than |         >         |
-|   is less than  |         <         |
-|       and       |         &&        |
-|        or       |         \|\|        |
-|   is inside of  | a.indexOf(b) > -1 |
-
-This is a sample conditional program, to show you the syntax required.
+You can also use `Or` statements, like this:
 ```
-If a is equal to 5, then do:
+If a is 5, then do:
+  (A is 5)
   Show "A is 5".
-Or if a is equal to 4, then do:
+Or if a is 4, then do:
+  (A is not 5, but it is 4)
   Show "A is 4".
 Or else do:
+  (A is not 5, and A is not 4)
   Show "A is not 5 or 4".
 End.
 ```

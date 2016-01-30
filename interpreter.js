@@ -10,10 +10,8 @@ function replaceAll(str, find, replace) {
 }
 
 function parseConditionalExpression(expression) {
-    expression = replaceAll(expression, " is equal to ", " === ");
-    expression = replaceAll(expression, " is not equal to ", " != ");
-    expression = replaceAll(expression, " is greater than ", " > ");
-    expression = replaceAll(expression, " is less than ", " < ");
+    expression = replaceAll(expression, " is ", " === ");
+    expression = replaceAll(expression, " is not  ", " != ");
     expression = replaceAll(expression, " and ", " && ");
     expression = replaceAll(expression, " or ", " || ");
     expression = expression.replace(/([a-zA-Z0-9]+) is inside of ([a-zA-Z0-9]+)/g, "$2.indexOf($1) > -1");
@@ -41,7 +39,7 @@ function hideError() {
 }
 
 function parseFunctionCalls(expression) {
-    return expression.replace(/<(.+?) with (.+?)>/g, function(x,y,z) {
+    return expression.replace(/<([^<>]+?) with ([^<>]+?)>/g, function(x,y,z) {
         return intoFunctionName(y) + "(" + z + ")";
     });
 }
