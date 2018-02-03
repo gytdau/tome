@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="interpreter.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/lumen/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/3/lumen/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h1>Tome</h1>
-            <textarea class="block" rows="4" id="text"></textarea>
-            <div class="btn btn-success" id="run" onclick="execute();">Run code</div>
-            <div class="alert alert-danger hidden" role="alert" id="error">
-                <strong id="error-title">Oh no! There are errors in your code: <br></strong>
-                <span id="error-text"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-header">
+                <h1>Tome</h1>
+                <h3>Code with a simple English syntax.</h3>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <textarea class="block" rows="4" id="text" placeholder="Start typing your code and make magic happen"></textarea>
+                <div class="btn btn-success" id="run" onclick="execute();">Run code</div>
+                <div class="alert alert-danger hidden" role="alert" id="error">
+                    <strong id="error-title">Oh no! There are errors in your code:
+                        <br>
+                    </strong>
+                    <span id="error-text"></span>
+                </div>
+                <h4 class="text-muted">Need help? Check out the
+                    <a href="https://github.com/gytdau/tome/blob/gh-pages/SPEC.md">guide.</a>
+                </h4>
             </div>
         </div>
     </div>
-</div>
 </body>
+
 </html>

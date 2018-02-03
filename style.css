@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i');
+* {
+    font-family: "Merriweather", Georgia, 'Times New Roman', Times, serif
+}
+
 .block {
     min-width: 100%;
-    font-family: monospace;
+    border: none;
+    background-color: #eee;
+    padding: 10px;
 }
 
 .highlight {
@@ -9,4 +16,9 @@
 
 .alert-danger {
     margin-top: 30px;
+}
+
+.col-header {
+    padding: 50px;
+    text-align: center;
 }
